@@ -1,6 +1,15 @@
 { lib, inputs, outputs, ... }: {
-  nixpkgs = {
+  
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+  ];
+  
+  home-manager = {
+    useUserPackages = true;
+    extraSpecialArgs = {inherit inputs outputs;};
+  };
 
+  nixpkgs = {
     overlays = [
       outputs.overlays.additions
       outputs.overlays.modifications

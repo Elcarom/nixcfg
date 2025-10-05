@@ -7,12 +7,7 @@
     packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
   };
 
-  home-manager = {
-	  useUserPackages = true;
-	  extraSpecialArgs = { inherit inputs outputs; };
-	  users.elcarom =
-	    import ../../../../home/elcarom/${config.networking.hostName}.nix;
-	};
+  home-manager.users.elcarom = import ../../../../home/elcarom/${config.networking.hostName}.nix;
 
 }
 
