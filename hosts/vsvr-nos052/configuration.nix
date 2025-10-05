@@ -31,7 +31,7 @@
   home-manager = {
 	  useUserPackages = true;
 	  extraSpecialArgs = { inherit inputs outputs; };
-	  users.m3tam3re =
+	  users.elcarom =
 	    import ../../home/vsvr-nos052/${config.networking.hostName}.nix;
 	};
 
