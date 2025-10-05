@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }: {
+{ config, pkgs, inputs, outputs, ... }: {
 
   users.users.elcarom = {
     isNormalUser = true;
