@@ -17,9 +17,6 @@
   };
 
   services.xserver.xkb.layout = "fr";
-  
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
 
   users.users.elcarom = {
     isNormalUser = true;
