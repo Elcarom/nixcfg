@@ -32,7 +32,7 @@
 	  useUserPackages = true;
 	  extraSpecialArgs = { inherit inputs outputs; };
 	  users.elcarom =
-	    import ../../home/vsvr-nos052/${config.networking.hostName}.nix;
+	    import ../../home/elcarom/${config.networking.hostName}.nix;
 	};
 
 
