@@ -1,6 +1,10 @@
 { config, lib, pkgs, inputs,... }:
 
 {
+  imports = [
+    inputs.caelestia-shell.homeManagerModules.default
+  ];
+  
   home.username = lib.mkDefault "elcarom";
   home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
 
