@@ -23,7 +23,7 @@
   };
 
   programs.home-manager.enable = true;
-  
+  programs.hyprland.enable = true;
   programs.caelestia = {
     enable = true;
     systemd = {
