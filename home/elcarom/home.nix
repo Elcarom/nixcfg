@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs,... }:
 
 {
   home.username = lib.mkDefault "elcarom";
@@ -32,6 +32,12 @@
         showBattery = false;
       };
       paths.wallpaperDir = "~/Images";
+    };
+    cli = {
+      enable = true; # Also add caelestia-cli to path
+      settings = {
+        theme.enableGtk = false;
+      };
     };
   };
 }
