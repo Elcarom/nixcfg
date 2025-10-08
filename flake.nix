@@ -15,7 +15,7 @@
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
-    }
+    };
 
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
@@ -25,7 +25,7 @@
     systems = {
       url = "github:nix-systems/default-linux";
       inputs.nixpkgs.follows = "nixpkgs";
-    }
+    };
 
     nur = {
       url = "github:nix-community/NUR";
