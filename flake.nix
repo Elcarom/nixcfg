@@ -26,7 +26,7 @@
       vsvr-nos052 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs self; };
-        modules = [ ./hosts/vsvr-nos052.nix ];
+        modules = [ ./hosts/vsvr-nos052/ ];
       };
     };
 
