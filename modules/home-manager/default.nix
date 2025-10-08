@@ -1,6 +1,13 @@
+{ config, pkgs, lib, inputs, ... }:
+
 {
-  options = import ./options.nix;
-  quickshell = import ./quickshell.nix;
-  hyprland = import ./hyprland.nix;
-  packages = import ./packages.nix inputs;
+  options = import ./options.nix { inherit config pkgs lib inputs; };
+
+  # Import submodules
+  config = lib.mkMerge [
+    (import ./theme.nix      { inherit config pkgs lib inputs; })
+    (import ./packages.nix   { inherit config pkgs lib inputs; })
+    (import ./hyprland.nix   { inherit config pkgs lib inputs; })
+    (import ./quickshell.nix { inherit config pkgs lib inputs; })
+  ];
 }

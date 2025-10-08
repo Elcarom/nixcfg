@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 let
   enabled = config.illogical-impulse.enable;
   cursor = config.illogical-impulse.theme.cursor;
@@ -21,6 +21,7 @@ in
       gtk.enable = true;
     };
 
+    # Custom icons
     home.file.".local/share/icons/MoreWaita" = {
       source = "${pkgs.morewaita-icon-theme}/share/icons";
     };

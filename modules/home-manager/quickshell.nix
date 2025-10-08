@@ -1,42 +1,16 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   cfg = config.illogical-impulse;
+  illogical-impulse-dotfiles = inputs.illogical-impulse-dotfiles;
 in
 {
-  config = lib.mkIf cfg.enable {
-    gtk = {
-      enable = true;
-      iconTheme = {
-        package = pkgs.adwaita-icon-theme;
-        name = "Adwaita";
-      };
-    };
-    qt = {
-      enable = true;
-      platformTheme.name = "kde6";
-    };
-    home.sessionVariables.ILLOGICAL_IMPULSE_VIRTUAL_ENV = "~/.local/state/quickshell/.venv";
+  config = lib.mkIf (cfg.enable && cfg.dotfiles.quickshell.enable) {
+    home.packages = [ inputs.quickshell.packages.${pkgs.system}.default ];
 
-    home.packages = with pkgs; [
-      inputs.quickshell.packages.${pkgs.system}.default
-      kdePackages.kdialog
-      kdePackages.qt5compat
-      kdePackages.qtbase
-      kdePackages.qtdeclarative
-      kdePackages.qtdeclarative
-      kdePackages.qtimageformats
-      kdePackages.qtmultimedia
-      kdePackages.qtpositioning
-      kdePackages.qtquicktimeline
-      kdePackages.qtsensors
-      kdePackages.qtsvg
-      kdePackages.qttools
-      kdePackages.qttranslations
-      kdePackages.qtvirtualkeyboard
-      kdePackages.qtwayland
-      kdePackages.syntax-highlighting
-    ];
+    home.sessionVariables.ILLOGICAL_IMPULSE_VIRTUAL_ENV =
+      "~/.local/state/quickshell/.venv";
 
-    xdg.configFile."quickshell".source = "${illogical-impulse-dotfiles}/.config/quickshell";
+    xdg.configFile."quickshell".source =
+      "${illogical-impulse-dotfiles}/.config/quickshell";
   };
 }

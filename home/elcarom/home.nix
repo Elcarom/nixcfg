@@ -1,46 +1,32 @@
-{ config, lib, pkgs, inputs,... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports = [
     inputs.illogical-impulse.homeManagerModules.default
   ];
-  
-  home.username = lib.mkDefault "elcarom";
-  home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
 
-  home.stateVersion = "25.05"; # Please read the comment before changing.
+  home.username = "elcarom";
+  home.homeDirectory = "/home/elcarom";
 
-  home.packages = [
-
-  ];
-
-  home.file = {
-
-  };
-
-  home.sessionVariables = {
-
-  };
+  home.stateVersion = "25.05";
 
   programs.home-manager.enable = true;
   programs.hyprland.enable = true;
+
   programs.illogical-impulse = {
-    # Enable the dotfiles suite
     enable = true;
 
     hyprland = {
-        # Use customized Hyprland build
-        package = hypr.hyprland;
-        xdgPortalPackage = hypr.xdg-desktop-portal-hyprland;
-
-        # Enable Wayland ozone
-        ozoneWayland.enable = true;
+      package = hypr.hyprland;
+      xdgPortalPackage = hypr.xdg-desktop-portal-hyprland;
+      ozoneWayland.enable = true;
     };
 
-    # Dotfiles configurations
     dotfiles = {
-        fish.enable = true;
-        kitty.enable = true;
+      fish.enable = true;
+      kitty.enable = true;
+      starship.enable = true;
+      quickshell.enable = true;
     };
-};
+  };
 }
