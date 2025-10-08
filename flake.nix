@@ -7,9 +7,34 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell";
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }
+
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
+    systems = {
+      url = "github:nix-systems/default-linux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }
+
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    illogical-impulse-dotfiles = {
+      url = "github:end4/dots-hyprland";
+      flake = false;
     };
     
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -31,6 +56,7 @@
       packages =
         forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
       overlays = import ./overlays { inherit inputs; };
+      homeManagerModules = import ./modules/home-manager;
       nixosConfigurations = {
         vsvr-nos052 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
