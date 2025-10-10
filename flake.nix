@@ -22,7 +22,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
   };
 
-  outputs = { self, home-manager, nixpkgs, ... }@inputs:
+  outputs = { self, home-manager, illogical-impulse-dotfilesnixpkgs, ... }@inputs:
     let
       inherit (self) outputs;
       systems = [
