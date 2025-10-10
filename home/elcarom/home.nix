@@ -1,32 +1,23 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs,... }:
 
 {
-  imports = [
-    inputs.illogical-impulse.homeManagerModules.default
+  
+  home.username = lib.mkDefault "elcarom";
+  home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
+
+  home.stateVersion = "25.05"; # Please read the comment before changing.
+
+  home.packages = [
+
   ];
 
-  home.username = "elcarom";
-  home.homeDirectory = "/home/elcarom";
+  home.file = {
 
-  home.stateVersion = "25.05";
+  };
+
+  home.sessionVariables = {
+
+  };
 
   programs.home-manager.enable = true;
-  programs.hyprland.enable = true;
-
-  programs.illogical-impulse = {
-    enable = true;
-
-    hyprland = {
-      package = hypr.hyprland;
-      xdgPortalPackage = hypr.xdg-desktop-portal-hyprland;
-      ozoneWayland.enable = true;
-    };
-
-    dotfiles = {
-      fish.enable = true;
-      kitty.enable = true;
-      starship.enable = true;
-      quickshell.enable = true;
-    };
-  };
 }
