@@ -36,6 +36,7 @@
     in {
       packages =
         forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+      homeManagerModules.default = import ./modules/home-manager/ self illogical-impulse-dotfiles inputs;
       overlays = import ./overlays { inherit inputs; };
       nixosConfigurations = {
         vsvr-nos052 = nixpkgs.lib.nixosSystem {
