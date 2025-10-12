@@ -20,7 +20,7 @@
   };
 
   programs.home-manager.enable = true;
-  inputs.illogical-impulse = {
+  programs.illogical-impulse = {
     enable = true;
 
     hyprland = {
