@@ -25,7 +25,7 @@
 
     hyprland = {
         # Use customized Hyprland build
-        package = hypr.hyprland;
+        package = pkgs.hyprland;
         xdgPortalPackage = hypr.xdg-desktop-portal-hyprland;
 
         # Enable Wayland ozone
