@@ -1,4 +1,5 @@
-self: illogical-impulse-dotfiles: inputs: { config, pkgs, lib, ... }:
+# modules/home-manager/default.nix
+{ illogical-impulse-dotfiles, inputs }: { config, pkgs, lib, ... }:
 {
   imports = [
     (import ./options.nix illogical-impulse-dotfiles { inherit config pkgs lib; })
