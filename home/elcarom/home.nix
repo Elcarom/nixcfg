@@ -3,7 +3,7 @@
 {
   
   imports = [
-    ../modules/home-manager/default.nix
+    ../../modules/home-manager/default.nix
   ];
 
   home.username = lib.mkDefault "elcarom";
