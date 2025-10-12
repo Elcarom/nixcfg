@@ -2,10 +2,9 @@
 
 {
   
-imports = [
-  ./modules/home-manager/default.nix self illogical-impulse-dotfiles
-];
-
+  imports = [
+    ../../modules/home-manager/default.nix
+  ];
 
   home.username = lib.mkDefault "elcarom";
   home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
