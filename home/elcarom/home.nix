@@ -2,6 +2,10 @@
 
 {
   
+  imports = [
+    inputs.illogical-impulse.homeManagerModules.default
+  ];
+    
   home.username = lib.mkDefault "elcarom";
   home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
 
