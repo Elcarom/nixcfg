@@ -26,6 +26,7 @@ in
       cliphist
       # cmake
       curl
+      dconf
       rsync
       wget
       libqalculate
