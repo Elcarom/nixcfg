@@ -33,6 +33,7 @@ in
       ripgrep
       jq
       # meson
+      neofetch
       fish
       foot
       fuzzel
