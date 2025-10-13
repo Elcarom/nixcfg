@@ -5,6 +5,6 @@
     (import ./options.nix illogical-impulse-dotfiles { inherit config pkgs lib; })
     (import ./quickshell.nix illogical-impulse-dotfiles { inherit config pkgs lib; })
     (import ./hyprland.nix illogical-impulse-dotfiles { inherit config pkgs lib; })
-    (import ./packages.nix { inherit config pkgs lib; })
+    (import ./packages.nix { inherit inputs config pkgs lib; })
   ];
 }
