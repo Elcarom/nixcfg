@@ -1,7 +1,7 @@
 inputs: { config, lib, pkgs, inputs, ... }:
 let
   cfg = config.illogical-impulse;
-  selfPkgs = import ../pkgs {
+  selfPkgs = import ../../pkgs {
     inherit pkgs;
   };
 in
