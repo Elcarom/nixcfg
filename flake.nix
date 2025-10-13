@@ -8,7 +8,7 @@
     };
 
     illogical-impulse-dotfiles = {
-      url = "github:end-4/dots-hyprland";
+      url = "github:xBLACKICEx/dots-hyprland?ref=tmp";
       flake = false;
     };
 
