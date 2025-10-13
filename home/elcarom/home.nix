@@ -24,7 +24,7 @@
   };
 
   programs.home-manager.enable = true;
-  programs.illogical-impulse = {
+  illogical-impulse = {
     enable = true;
 
     hyprland = {
