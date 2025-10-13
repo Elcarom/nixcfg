@@ -26,7 +26,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
   };
 
-  outputs = { self, nixpkgs, home-manager, illogical-impulse-dotfiles, nur, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nur, illogical-impulse-dotfiles, ... }@inputs:
   let
     inherit (self) outputs;
     systems = [
@@ -38,7 +38,9 @@
     ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
-    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    packages = forAllSystems (system:
+      import ./pkgs nixpkgs.legacyPackages.${system}
+    );
 
     homeManagerModules.default = import ./modules/home-manager/default.nix {
       inherit illogical-impulse-dotfiles inputs;
