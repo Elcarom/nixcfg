@@ -41,8 +41,6 @@
   services.xserver.videoDrivers = [ "virtio" ];
 
   hardware.opengl.enable = true;
-  hardware.opengl.driSupport = true;
-  hardware.opengl.driSupport32Bit = true;
 
   environment.variables = {
     LIBGL_ALWAYS_SOFTWARE = "1";
