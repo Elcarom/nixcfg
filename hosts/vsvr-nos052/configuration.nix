@@ -36,7 +36,14 @@
   ];
 
   services.openssh.enable = true;
+  
+  services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "virtio" ];
 
+  hardware.opengl.enable = true;
+  hardware.opengl.driSupport = true;
+  hardware.opengl.driSupport32Bit = true;
+  
   system.stateVersion = "25.05";
 
 }
