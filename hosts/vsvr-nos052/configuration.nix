@@ -43,6 +43,11 @@
   hardware.opengl.enable = true;
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
+
+  environment.variables = {
+    LIBGL_ALWAYS_SOFTWARE = "1";
+    GALLIUM_DRIVER = "llvmpipe";
+  };
   
   system.stateVersion = "25.05";
 
