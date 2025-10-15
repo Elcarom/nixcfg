@@ -34,7 +34,12 @@
     wget
     git
   ];
-
+  
+  programs.hyprland = {
+	    enable = true;
+	    xwayland.enable = true;
+	};
+  
   services.openssh.enable = true;
 
   system.stateVersion = "25.05";
