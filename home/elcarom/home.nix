@@ -7,7 +7,7 @@
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
   home.packages = [
-    kitty
+    pkgs.kitty
   ];
 
   home.file = {
