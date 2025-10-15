@@ -1,7 +1,6 @@
-{ config, lib, pkgs, inputs,... }:
+{ config, lib, pkgs, ... }:
 
 {
-
   home.username = lib.mkDefault "elcarom";
   home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
 
@@ -20,22 +19,25 @@
   };
 
   programs.home-manager.enable = true;
-  illogical-impulse = {
-    enable = true;
-
-    hyprland = {
-        # Use customized Hyprland build
-        package = pkgs.hyprland;
-        xdgPortalPackage = pkgs.xdg-desktop-portal-hyprland;
-
-        # Enable Wayland ozone
-        ozoneWayland.enable = true;
+  
+  programs.caelestia = {
+  enable = true;
+  systemd = {
+    enable = true; # if you prefer starting from your compositor
+    target = "graphical-session.target";
+    environment = [];
+  };
+  settings = {
+    bar.status = {
+      showBattery = false;
     };
-
-    # Dotfiles configurations
-    dotfiles = {
-        fish.enable = true;
-        kitty.enable = true;
+    paths.wallpaperDir = "~/Images";
+  };
+  cli = {
+    enable = true; # Also add caelestia-cli to path
+    settings = {
+      theme.enableGtk = false;
     };
+  };
 };
 }

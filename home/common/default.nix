@@ -1,5 +1,4 @@
 { config, lib, outputs, pkgs, ... }: {
-  imports = builtins.attrValues outputs.homeManagerModules;
   nixpkgs = {
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):

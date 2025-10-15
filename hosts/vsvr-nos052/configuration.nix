@@ -36,17 +36,7 @@
   ];
 
   services.openssh.enable = true;
-  
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "virtio" ];
 
-  hardware.opengl.enable = true;
-
-  environment.variables = {
-    LIBGL_ALWAYS_SOFTWARE = "1";
-    GALLIUM_DRIVER = "llvmpipe";
-  };
-  
   system.stateVersion = "25.05";
 
 }

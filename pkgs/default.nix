@@ -1,4 +1,5 @@
 { pkgs, ... }:
 {
-  illogical-impulse-oneui4-icons = pkgs.callPackage ./illogical-impulse-oneui4-icons {};
+  # Define your custom packages here
+  #  my-package = pkgs.callPackage ./my-package {};
 }
