@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    inputs.caelestia-shell.homeManagerModules.caelestia
+  ];
+  
   home.username = lib.mkDefault "elcarom";
   home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
 
@@ -19,7 +23,7 @@
   };
 
   programs.home-manager.enable = true;
-  
+
   programs.caelestia = {
   enable = true;
   systemd = {
