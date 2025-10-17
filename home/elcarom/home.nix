@@ -2,7 +2,7 @@
 
 {
   imports = [
-    inputs.illogical-impulse.homeManagerModules.default
+    inputs.caelestia-shell.homeManagerModules.default
   ];
   
   home.username = lib.mkDefault "elcarom";
