@@ -2,7 +2,7 @@
 
 {
   imports = [
-    inputs.caelestia-shell.homeManagerModules.default
+    inputs.illogical-impulse.homeManagerModules.default
   ];
   
   home.username = lib.mkDefault "elcarom";
@@ -24,24 +24,23 @@
 
   programs.home-manager.enable = true;
 
-  programs.caelestia = {
-  enable = true;
-  systemd = {
-    enable = false; # if you prefer starting from your compositor
-    target = "graphical-session.target";
-    environment = [];
+  illogical-impulse = {
+      # Enable the dotfiles suite
+      enable = true;
+
+      hyprland = {
+          # Use customized Hyprland build
+          package = hypr.hyprland;
+          xdgPortalPackage = hypr.xdg-desktop-portal-hyprland;
+
+          # Enable Wayland ozone
+          ozoneWayland.enable = true;
+      };
+
+      # Dotfiles configurations
+      dotfiles = {
+          fish.enable = true;
+          kitty.enable = true;
+      };
   };
-  settings = {
-    bar.status = {
-      showBattery = false;
-    };
-    paths.wallpaperDir = "~/Images";
-  };
-  cli = {
-    enable = true; # Also add caelestia-cli to path
-    settings = {
-      theme.enableGtk = false;
-    };
-  };
-};
 }

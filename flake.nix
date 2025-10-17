@@ -7,8 +7,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell";
+    illogical-impulse = {
+      url = "github:elcarom/end-4-nixos";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     
