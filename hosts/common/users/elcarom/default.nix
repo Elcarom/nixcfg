@@ -7,7 +7,5 @@
     packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
   };
 
-  home-manager.users.elcarom = import ../../../../home/elcarom/${config.networking.hostName}.nix;
-
 }
 
