@@ -42,6 +42,8 @@
   
   services.openssh.enable = true;
   
+  hardware.opengl.enable = true;
+  
   system.stateVersion = "25.05";
 
 }

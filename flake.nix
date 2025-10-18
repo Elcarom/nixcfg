@@ -6,6 +6,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    illogical-impulse = {
+      url = "github:elcarom/end-4-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";

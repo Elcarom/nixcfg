@@ -1,6 +1,9 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
+  imports = [
+    inputs.illogical-impulse.homeManagerModules.default
+  ];
   
   home.username = lib.mkDefault "elcarom";
   home.homeDirectory = lib.mkDefault "/home/${config.home.username}";
@@ -20,5 +23,15 @@
   };
 
   programs.home-manager.enable = true;
-  programs.hyprpanel.enable = true;
+
+  illogical-impulse = {
+      # Enable the dotfiles suite
+      enable = true;
+
+      # Dotfiles configurations
+      dotfiles = {
+          fish.enable = true;
+          kitty.enable = true;
+      };
+  };
 }
