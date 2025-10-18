@@ -6,14 +6,14 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
-  dotfiles = {
+  illogicalImpulse = {
       url = "github:end-4/dots-hyprland";
       flake = false;
     };
 
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, illogicalImpulse, ... }@inputs:
     let
       inherit (self) outputs;
       systems = [
@@ -30,7 +30,10 @@
       overlays = import ./overlays { inherit inputs; };
       nixosConfigurations = {
         vsvr-nos052 = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = {
+              inherit inputs outputs;
+              illogicalImpulse = inputs.illogicalImpulse
+              };
           modules = [ ./hosts/vsvr-nos052 ];
         };
       };

@@ -1,23 +1,23 @@
-{ config, lib, pkgs, dotfilesPath, ... }:
+{ config, lib, pkgs, illogicalImpulse, ... }:
 
 let
   users = builtins.filter (u: config.users.users.${u}.isNormalUser or false)
            (builtins.attrNames config.users.users);
 
   # Get list of files/folders inside .config and .local in the dotfiles repo
-  configItems = builtins.attrNames (builtins.readDir "${dotfilesPath}/dots/.config");
-  localItems  = builtins.attrNames (builtins.readDir "${dotfilesPath}/dots/.local");
+  configItems = builtins.attrNames (builtins.readDir "${illogicalImpulse}/dots/.config");
+  localItems  = builtins.attrNames (builtins.readDir "${illogicalImpulse}/dots/.local");
 
   makeRulesForUser = user:
     let
       home = config.users.users.${user}.home or "/home/${user}";
 
       cfgLinks = map (item:
-        "L ${home}/.config/${item} - - - - ${dotfilesPath}/dots/.config/${item}"
+        "L ${home}/.config/${item} - - - - ${illogicalImpulse}/dots/.config/${item}"
       ) configItems;
 
       localLinks = map (item:
-        "L ${home}/.local/${item} - - - - ${dotfilesPath}/dots/.local/${item}"
+        "L ${home}/.local/${item} - - - - ${illogicalImpulse}/dots/.local/${item}"
       ) localItems;
 
     in [
@@ -30,7 +30,7 @@ let
 in {
   systemd.tmpfiles.rules = tmpfilesRules;
 
-  environment.etc."dotfiles".source = dotfilesPath;
+  environment.etc."dotfiles".source = illogicalImpulse;
 
   environment.systemPackages = with pkgs; [
         # # AUDIO #
