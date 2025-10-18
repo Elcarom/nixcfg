@@ -31,7 +31,6 @@
   services.xserver.xkb.layout = "fr";
 
   environment.systemPackages = with pkgs; [
-    wget
     git
   ];
   
