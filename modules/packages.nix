@@ -31,64 +31,63 @@
     xdg-user-dirs
 
     # # FONT THEMES #
-    #   adw-gtk-theme-git
+    adw-gtk3
     #   breeze-plus
-    #   eza
-    #   fish
-    #   fontconfig
-    #   kde-material-you-colors
-    #   kitty
-    #   matugen
-    #   starship
-    #   # ttf-readex-pro
-    #   # ttf-jetbrains-mono-nerd
-    #   # ttf-material-symbols-variable-git
-    #   # ttf-rubik-vf
-    #   # ttf-gabarito-git
+    eza
+    fish
+    fontconfig
+    python313Packages.kde-material-you-colors
+    kitty
+    matugen
+    starship
+    #   ttf-readex-pro
+    jetbrains-mono
+    material-symbols
+    rubik
+    #   ttf-gabarito-git
 
     # # HYPRLAND #
-    #   # hyprutils
-    #   # hyprpicker
-    #   # hyprlang
-    #   # hypridle
-    #   # hyprland-qt-support
-    #   # hyprland-qtutils
-    #   # hyprlock
-    #   # hyprcursor
-    #   # hyprwayland-scanner
-    #   # hyprland
-    #   # xdg-desktop-portal-hyprland
-    #   wl-clipboard
+    hyprutils
+    hyprpicker
+    hyprlang
+    hypridle
+    hyprland-qt-support
+    hyprland-qtutils
+    hyprlock
+    hyprcursor
+    hyprwayland-scanner
+    hyprland
+    xdg-desktop-portal-hyprland
+    wl-clipboard
 
     # # KDE #
-    #   bluedevil
-    #   gnome-keyring
-    #   networkmanager
-    #   plasma-nm
-    #   polkit-kde-agent
-    #   systemsettings
+    kdePackages.bluedevil
+    gnome-keyring
+    kdePackages.plasma-nm
+    kdePackages.polkit-kde-agent-1
+    kdePackages.systemsettings
 
     # # PYTHON #
-    #   # clang
-    #   uv
-    #   gtk4
-    #   libadwaita
-    #   libsoup3
-    #   libportal-gtk4
-    #   gobject-introspection
-    #   sassc
-    #   # python-opencv
+    #   clang
+    uv
+    gtk4
+    libadwaita
+    libsoup_3
+    libportal-gtk4
+    gobject-introspection
+    sassc
+    popencv
 
-    # # SCREEN CAPUTUER #
-    #   swappy
-    #   wf-recorder
-    #   hyprshot
-    #   tesseract
-    #   slurp
+    # # SCREEN CAPUTRE #
+    swappy
+    wf-recorder
+    hyprshot
+    tesseract
+    slurp
 
     # # TOOLKIT #
-    #   kdialog
-    #   kdePackages.5compat
+    kdePackages.kdialog
+    kdePackages.qt5compat
     #   kdePackages.base
     #   kdePackages.declarative
     #   kdePackages.imageformats
@@ -100,24 +99,20 @@
     #   kdePackages.tools
     #   kdePackages.translations
     #   kdePackages.virtualkeyboard
-    #   kdePackages.wayland
-    #   syntax-highlighting
-    #   upower
-    #   wtype
-    #   ydotool
+    kdePackages.wayland
+    kdePackages.syntax-highlighting
+    upower
+    wtype
+    ydotool
 
     # # WIDGETS #
-    #   fuzzel
-    #   glib2 # for `gsettings` it seems?
-    #   # hypridle
-    #   # hyprutils
-    #   # hyprlock
-    #   # hyprpicker
+    fuzzel
+    glib # for `gsettings` it seems?
     #   nm-connection-editor
-    #   quickshell
-    #   swww
-    #   translate-shell
-    #   wlogout
+    quickshell
+    swww
+    translate-shell
+    wlogout
     
     ];
   }
