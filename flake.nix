@@ -31,9 +31,9 @@
       nixosConfigurations = {
         vsvr-nos052 = nixpkgs.lib.nixosSystem {
           specialArgs = {
-              inherit inputs outputs;
-              illogicalImpulse = inputs.illogicalImpulse
-              };
+            inherit inputs outputs;
+            illogicalImpulse = inputs.illogicalImpulse;
+          };
           modules = [ ./hosts/vsvr-nos052 ];
         };
       };
