@@ -31,10 +31,18 @@
   services.xserver.xkb.layout = "fr";
 
   environment.systemPackages = with pkgs; [
+    wget
     git
   ];
   
+  programs.hyprland = {
+	    enable = true;
+	    xwayland.enable = true;
+	};
+  
   services.openssh.enable = true;
+  
+  hardware.opengl.enable = true;
   
   system.stateVersion = "25.05";
 
