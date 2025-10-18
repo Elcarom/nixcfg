@@ -76,7 +76,7 @@
     libportal-gtk4
     gobject-introspection
     sassc
-    popencv
+    opencv
 
     # # SCREEN CAPUTRE #
     swappy
