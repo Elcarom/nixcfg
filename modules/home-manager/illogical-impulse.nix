@@ -12,10 +12,14 @@ in {
   config = {
     
     home.file = {
-      ".config" = {
-        source = dotConfigPath;
-        recursive = true; # This copies the directory recursively
+    ".config" = {
+      source = lib.fileset.toSource {
+        root = dotConfigPath;
+        fileset = lib.fileset.difference
+          (lib.fileset.fromSource dotConfigPath)
+          (lib.fileset.fromSource "${dotConfigPath}/quickshell");
       };
+    }
 
       ".local" = {
       source = dotLocalPath;
