@@ -19,6 +19,7 @@ in {
             (lib.fileset.fromSource dotConfigPath)
             (lib.fileset.fromSource "${dotConfigPath}/quickshell");
         };
+      };
 
       ".local" = {
       source = dotLocalPath;
