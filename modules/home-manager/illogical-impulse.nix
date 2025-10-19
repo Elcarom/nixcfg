@@ -12,14 +12,13 @@ in {
   config = {
     
     home.file = {
-    ".config" = {
-      source = lib.fileset.toSource {
-        root = dotConfigPath;
-        fileset = lib.fileset.difference
-          (lib.fileset.fromSource dotConfigPath)
-          (lib.fileset.fromSource "${dotConfigPath}/quickshell");
-      };
-    }
+      ".config" = {
+        source = lib.fileset.toSource {
+          root = dotConfigPath;
+          fileset = lib.fileset.difference
+            (lib.fileset.fromSource dotConfigPath)
+            (lib.fileset.fromSource "${dotConfigPath}/quickshell");
+        };
 
       ".local" = {
       source = dotLocalPath;
