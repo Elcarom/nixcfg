@@ -6,7 +6,7 @@ let
 in {
   config = {
     home.file = {
-      ".tmp" = {
+      ".config" = {
         source = dotConfigPath;
         recursive = true; # This copies the directory recursively
       };
