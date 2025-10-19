@@ -35,7 +35,7 @@ in {
     };
   }) dotFilesFiltered);
 
-    config.environment.systemPackages = with pkgs; [
+    config.home.packages = with pkgs; [
     
         # # AUDIO #
     cava
