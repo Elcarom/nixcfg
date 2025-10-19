@@ -2,7 +2,7 @@
 
 {
   imports = [
-    inputs.illogical-impulse.homeManagerModules.default
+    ../../modules/home-manager/illogical-impulse.nix
   ];
   
   home.username = lib.mkDefault "elcarom";

@@ -8,8 +8,8 @@
     };
 
     illogical-impulse = {
-      url = "github:elcarom/end-4-nixos";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:end-4/dots-hyprland";
+      flake = false;
     };
     
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
