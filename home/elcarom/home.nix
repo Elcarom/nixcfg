@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../modules/home-manager/illogical-impulse.nix
+   ../../modules/home-manager/illogical-impulse.nix
   ];
   
   home.username = lib.mkDefault "elcarom";
@@ -23,5 +23,6 @@
   };
 
   programs.home-manager.enable = true;
+  fonts.fontconfig.enable = false;
 
 }

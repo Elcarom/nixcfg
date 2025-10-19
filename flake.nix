@@ -7,7 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    illogical-impulse = {
+    illogicalImpulse = {
       url = "github:end-4/dots-hyprland";
       flake = false;
     };
@@ -16,7 +16,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
   };
 
-  outputs = { self, home-manager, nixpkgs, ... }@inputs:
+  outputs = { self, home-manager, nixpkgs, illogicalImpulse, ... }@inputs:
     let
       inherit (self) outputs;
       systems = [
