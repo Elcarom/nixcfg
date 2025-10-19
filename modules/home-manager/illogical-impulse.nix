@@ -12,17 +12,15 @@ let
       else
         [{
           src = full;
-          rel = lib.removePrefix (dotsDir + "/") full;
+          rel = lib.removePrefix (toString dotsDir + "/") (toString full);
         }]
     ) (lib.attrNames entries);
 
-  # Collect all files in dots/
   dotFiles = mkDotFiles dotsDir;
 
-  # Filter out any files you don’t want to deploy
   dotFilesFiltered = lib.filter (f:
-    !lib.hasSuffix ".md" f.rel &&  # skip Markdown
-    !(lib.hasPrefix ".git" f.rel)  # skip git files
+    !lib.hasSuffix ".md" f.rel &&
+    !(lib.hasPrefix ".git" f.rel)
   ) dotFiles;
 
 in {
@@ -30,12 +28,12 @@ in {
     name = lib.replaceStrings ["/"] ["__"] f.rel;
     value = {
       source = f.src;
-      destination = f.rel; # same relative layout under $HOME
-      type = "symlink";    # use "copy" if you prefer copying
+      destination = f.rel;
+      type = "symlink";
     };
   }) dotFilesFiltered);
 
-    config.home.packages = with pkgs; [
+  config.home.packages = with pkgs; [
     
         # # AUDIO #
     cava
