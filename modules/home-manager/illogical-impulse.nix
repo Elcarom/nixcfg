@@ -2,13 +2,23 @@
 
 
 let
+  
   dotConfigPath = "${inputs.illogicalImpulse}/dots/.config";
+  dotLocalPath = "${inputs.illogicalImpulse}/dots/.local";
+
 in {
+  
   config = {
+    
     home.file = {
       ".config" = {
         source = dotConfigPath;
         recursive = true; # This copies the directory recursively
+      };
+
+      ".local" = {
+      source = dotLocalSharePath;
+      recursive = true;
       };
     };
 
