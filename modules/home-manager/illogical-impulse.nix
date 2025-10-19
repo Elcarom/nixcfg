@@ -6,7 +6,7 @@ let
   dotsDir = if lib.hasSuffix "/" dotsDirRaw then lib.substring 0 (lib.stringLength dotsDirRaw - 1) dotsDirRaw else dotsDirRaw;
   dotsDirLen = lib.stringLength dotsDir + 1; # +1 to account for the separating '/'
 
-  # Recursively collect regular files under a directory, skipping .git and hidden directories at descent time
+  # Recursively collect regular files under a directory, skipping .git at descent time
   collectFiles = dir:
     let
       dirPath = builtins.toPath dir;
@@ -48,8 +48,8 @@ let
       relNoLead = if lib.hasPrefix "." rel then lib.substring 1 (lib.stringLength rel - 1) rel else rel;
       relNoLead2 = if lib.hasPrefix "/" relNoLead then lib.substring 1 (lib.stringLength relNoLead - 1) relNoLead else relNoLead;
       baseName = lib.replaceStrings [ "/" ] [ "__" ] relNoLead2;
-      shortHash = lib.substring 0 8 (lib.hashString "sha256" (toString f.src));
-      name = if baseName == "" then "." + shortHash else baseName + "-" + shortHash;
+      shortHash = lib.substring 0 8 (builtins.hashString "sha256" (toString f.src));
+      name = if baseName == "" then shortHash else baseName + "-" + shortHash;
     in {
       name = name;
       value = {
