@@ -13,7 +13,6 @@ in {
     name = name;
     value.source = "${dotConfigPath}/${name}";
   }) configFiles);
-}
 
   config.home.packages = with pkgs; [
     cava
