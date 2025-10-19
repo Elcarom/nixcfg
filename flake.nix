@@ -6,17 +6,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    illogicalImpulse = {
-      url = "github:end-4/dots-hyprland";
-      flake = false;
-    };
     
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
   };
 
-  outputs = { self, home-manager, nixpkgs, illogicalImpulse, ... }@inputs:
+  outputs = { self, home-manager, nixpkgs, ... }@inputs:
     let
       inherit (self) outputs;
       systems = [
