@@ -9,7 +9,7 @@
 
     illogical-impulse = {
       url = "github:xBLACKICEx/end-4-dots-hyprland-nixos";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";

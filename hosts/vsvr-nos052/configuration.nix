@@ -4,7 +4,6 @@
   imports =
     [ 
       ./hardware-configuration.nix
-      inputs.illogical-impulse.homeManagerModules.default
     ];
 
   networking.hostName = "vsvr-nos052";
