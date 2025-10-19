@@ -20,6 +20,12 @@ in {
       source = dotLocalPath;
       recursive = true;
       };
+
+      ".config/quickshell" = {
+        .source = dotConfigPath/quickshell/ii";
+        recursive = true;
+      };
+      
     };
 
     home.packages = with pkgs; [
