@@ -23,6 +23,6 @@
   };
 
   programs.home-manager.enable = true;
-  fonts.fontconfig.enable
+  fonts.fontconfig.enable = true;;
 
 }
