@@ -17,7 +17,7 @@ in {
       };
 
       ".local" = {
-      source = dotLocalSharePath;
+      source = dotLocalPath;
       recursive = true;
       };
     };
