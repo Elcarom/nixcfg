@@ -1,61 +1,44 @@
 { lib, config, pkgs, inputs, ... }:
 
 let
-  # Path to the dots directory
   dotsDir = inputs.illogical-impulse + "/dots";
 
-  # Recursively collect files in dots/
+  # Recursively collect all files under dotsDir
   collectFiles = dir:
     let entries = builtins.readDir dir;
     in lib.concatMap (name:
-      let
-        full = dir + "/" + name;
+      let full = dir + "/" + name;
+          rel  = lib.replaceStrings [toString dotsDir + "/"] [""] (toString full);
       in if entries.${name} == "directory" then
-        collectFiles full
-      else
-        [{
-          src = full;
-          # Compute the relative path under dotsDir safely
-          rel = lib.replaceStrings [ (toString dotsDir + "/") ] [""] (toString full);
-        }]
+           collectFiles full
+         else
+           [{ src = full; rel = rel; }]
     ) (lib.attrNames entries);
 
-  dotFiles = collectFiles dotsDir;
-
-  # Filter out unwanted files (like .md or .git)
-  dotFilesFiltered = lib.filter (f:
-    !lib.hasSuffix ".md" f.rel &&
-    !(lib.hasPrefix ".git" f.rel)
-  ) dotFiles;
+  dotFilesFiltered = lib.filter (f: 
+    !lib.hasSuffix ".md" f.rel && !(lib.hasPrefix ".git" f.rel)
+  ) (collectFiles dotsDir);
 
 in {
-
-  # Deploy dotfiles safely
   config.home.file = lib.listToAttrs (map (f: {
     name = lib.replaceStrings ["/"] ["__"] f.rel;
     value = {
-      source = f.src;        # store path is fine
-      destination = f.rel;   # relative path only
-      type = "symlink";      # or "copy"
+      source = f.src;       # store path is fine
+      destination = f.rel;  # pure relative string
+      type = "symlink";
     };
   }) dotFilesFiltered);
 
-  # Packages for Home Manager
   config.home.packages = with pkgs; [
-    # AUDIO
     cava
     lxqt.pavucontrol-qt
     wireplumber
     libdbusmenu-gtk3
     playerctl
-
-    # BACK LIGHT
     gammastep
     geoclue2
     brightnessctl
     ddcutil
-
-    # BASIC
     axel
     bc
     coreutils
@@ -68,8 +51,6 @@ in {
     jq
     meson
     xdg-user-dirs
-
-    # FONT THEMES
     adw-gtk3
     eza
     fish
@@ -81,8 +62,6 @@ in {
     jetbrains-mono
     material-symbols
     rubik
-
-    # HYPRLAND
     hyprutils
     hyprpicker
     hyprlang
@@ -95,15 +74,11 @@ in {
     hyprland
     xdg-desktop-portal-hyprland
     wl-clipboard
-
-    # KDE
     kdePackages.bluedevil
     gnome-keyring
     kdePackages.plasma-nm
     kdePackages.polkit-kde-agent-1
     kdePackages.systemsettings
-
-    # PYTHON
     uv
     gtk4
     libadwaita
@@ -112,15 +87,11 @@ in {
     gobject-introspection
     sassc
     opencv
-
-    # SCREEN CAPTURE
     swappy
     wf-recorder
     hyprshot
     tesseract
     slurp
-
-    # TOOLKIT
     kdePackages.kdialog
     kdePackages.qt5compat
     kdePackages.wayland
@@ -128,8 +99,6 @@ in {
     upower
     wtype
     ydotool
-
-    # WIDGETS
     fuzzel
     glib
     quickshell
