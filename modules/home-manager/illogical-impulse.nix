@@ -5,6 +5,7 @@ let
   
   dotConfigPath = "${inputs.illogicalImpulse}/dots/.config";
   dotLocalPath = "${inputs.illogicalImpulse}/dots/.local";
+  dotQuickshellPath = "${inputs.illogicalImpulse}/dots/.config/quickshell/ii";
 
 in {
   
@@ -22,7 +23,7 @@ in {
       };
 
       ".config/quickshell" = {
-        source = dotConfigPath/quickshell/ii";
+        source = dotQuickshellPath;
         recursive = true;
       };
 
