@@ -1,30 +1,34 @@
 { lib, config, pkgs, inputs, ... }:
 
 let
-  dotsDir = inputs.illogical-impulse + "/dots";
+  dotsDir = builtins.toPath (inputs.illogical-impulse + "/dots");
 
-  # Recursively collect all files under dotsDir
   collectFiles = dir:
-    let entries = builtins.readDir dir;
+    let
+      entries = builtins.readDir dir;
+      dirPath = builtins.toPath dir;
     in lib.concatMap (name:
-      let full = dir + "/" + name;
-          rel  = lib.replaceStrings [toString dotsDir + "/"] [""] (toString full);
-      in if entries.${name} == "directory" then
+      let
+        full = dirPath + "/" + name;
+        kind = entries.${name};
+        rel = lib.replaceStrings [ "${dotsDir}/" ] [ "" ] full;
+        relClean = if lib.hasPrefix "/" rel then lib.substring 1 (lib.stringLength rel - 1) rel else rel;
+      in if kind == "directory" then
            collectFiles full
          else
-           [{ src = full; rel = rel; }]
+           [{ src = full; rel = relClean; }]
     ) (lib.attrNames entries);
 
-  dotFilesFiltered = lib.filter (f: 
-    !lib.hasSuffix ".md" f.rel && !(lib.hasPrefix ".git" f.rel)
+  dotFilesFiltered = lib.filter (f:
+    !lib.hasSuffix ".md" f.rel && !lib.hasPrefix ".git" f.rel
   ) (collectFiles dotsDir);
 
 in {
   config.home.file = lib.listToAttrs (map (f: {
-    name = lib.replaceStrings ["/"] ["__"] f.rel;
+    name = lib.replaceStrings [ "/" ] [ "__" ] f.rel;
     value = {
-      source = f.src;       # store path is fine
-      destination = f.rel;  # pure relative string
+      source = f.src;
+      destination = f.rel;
       type = "symlink";
     };
   }) dotFilesFiltered);
