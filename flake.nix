@@ -2,18 +2,21 @@
   description = "NixOS Flake";
 
   inputs = {
-
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
-
-  illogicalImpulse = {
-      url = "github:end-4/dots-hyprland";
-      flake = false;
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    illogical-impulse = {
+      url = "github:elcarom/end-4-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
   };
 
-  outputs = { self, nixpkgs, illogicalImpulse, ... }@inputs:
+  outputs = { self, home-manager, nixpkgs, ... }@inputs:
     let
       inherit (self) outputs;
       systems = [
@@ -30,11 +33,15 @@
       overlays = import ./overlays { inherit inputs; };
       nixosConfigurations = {
         vsvr-nos052 = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-            illogicalImpulse = inputs.illogicalImpulse;
-          };
+          specialArgs = { inherit inputs outputs; };
           modules = [ ./hosts/vsvr-nos052 ];
+        };
+      };
+      homeConfigurations = {
+        "elcarom@vsvr-nos052" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./home/elcarom/vsvr-nos052.nix ];
         };
       };
     };
