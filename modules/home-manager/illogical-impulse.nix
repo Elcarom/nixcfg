@@ -1,54 +1,60 @@
 { lib, config, pkgs, inputs, ... }:
 
 let
+  # Path to the dots directory
   dotsDir = inputs.illogical-impulse + "/dots";
 
-  mkDotFiles = path:
-    let entries = builtins.readDir path;
+  # Recursively collect files in dots/
+  collectFiles = dir:
+    let entries = builtins.readDir dir;
     in lib.concatMap (name:
-      let full = path + "/" + name;
-      in if (entries.${name} == "directory") then
-        mkDotFiles full
+      let full = dir + "/" + name;
+      in if entries.${name} == "directory" then
+        collectFiles full
       else
         [{
           src = full;
-          rel = lib.removePrefix (toString dotsDir + "/") (toString full);
+          # Compute the relative path under dotsDir
+          rel = lib.replaceStrings [toString dotsDir + "/"] [""] (toString full);
         }]
     ) (lib.attrNames entries);
 
-  dotFiles = mkDotFiles dotsDir;
+  dotFiles = collectFiles dotsDir;
 
+  # Filter out unwanted files (like .md or .git)
   dotFilesFiltered = lib.filter (f:
     !lib.hasSuffix ".md" f.rel &&
     !(lib.hasPrefix ".git" f.rel)
   ) dotFiles;
 
 in {
+
+  # Deploy dotfiles safely
   config.home.file = lib.listToAttrs (map (f: {
     name = lib.replaceStrings ["/"] ["__"] f.rel;
     value = {
-      source = f.src;
-      destination = f.rel;
-      type = "symlink";
+      source = f.src;        # store path is fine here
+      destination = f.rel;   # MUST be relative string, no store prefix
+      type = "symlink";      # symlink or "copy"
     };
   }) dotFilesFiltered);
 
+  # Packages for Home Manager
   config.home.packages = with pkgs; [
-    
-        # # AUDIO #
+    # AUDIO
     cava
     lxqt.pavucontrol-qt
     wireplumber
     libdbusmenu-gtk3
     playerctl
 
-    # # BACK LIGNT#
+    # BACK LIGHT
     gammastep
     geoclue2
     brightnessctl
     ddcutil
 
-    # # BASIC #
+    # BASIC
     axel
     bc
     coreutils
@@ -62,9 +68,8 @@ in {
     meson
     xdg-user-dirs
 
-    # # FONT THEMES #
+    # FONT THEMES
     adw-gtk3
-    #   breeze-plus
     eza
     fish
     fontconfig
@@ -72,13 +77,11 @@ in {
     kitty
     matugen
     starship
-    #   ttf-readex-pro
     jetbrains-mono
     material-symbols
     rubik
-    #   ttf-gabarito-git
 
-    # # HYPRLAND #
+    # HYPRLAND
     hyprutils
     hyprpicker
     hyprlang
@@ -92,15 +95,14 @@ in {
     xdg-desktop-portal-hyprland
     wl-clipboard
 
-    # # KDE #
+    # KDE
     kdePackages.bluedevil
     gnome-keyring
     kdePackages.plasma-nm
     kdePackages.polkit-kde-agent-1
     kdePackages.systemsettings
 
-    # # PYTHON #
-    #   clang
+    # PYTHON
     uv
     gtk4
     libadwaita
@@ -110,42 +112,28 @@ in {
     sassc
     opencv
 
-    # # SCREEN CAPUTRE #
+    # SCREEN CAPTURE
     swappy
     wf-recorder
     hyprshot
     tesseract
     slurp
 
-    # # TOOLKIT #
+    # TOOLKIT
     kdePackages.kdialog
     kdePackages.qt5compat
-    #   kdePackages.base
-    #   kdePackages.declarative
-    #   kdePackages.imageformats
-    #   kdePackages.multimedia
-    #   kdePackages.positioning
-    #   kdePackages.quicktimeline
-    #   kdePackages.sensors
-    #   kdePackages.svg
-    #   kdePackages.tools
-    #   kdePackages.translations
-    #   kdePackages.virtualkeyboard
     kdePackages.wayland
     kdePackages.syntax-highlighting
     upower
     wtype
     ydotool
 
-    # # WIDGETS #
+    # WIDGETS
     fuzzel
     glib
-    #   nm-connection-editor
     quickshell
     swww
     translate-shell
     wlogout
-    
-    ];
-
+  ];
 }
