@@ -13,7 +13,7 @@ in {
     
     home.file = {
       ".config" = {
-        source = lib.fileset.toSource {
+        source = lib.sources {
           root = dotConfigPath;
           fileset = lib.fileset.difference
             (lib.fileset.fromSource dotConfigPath)
