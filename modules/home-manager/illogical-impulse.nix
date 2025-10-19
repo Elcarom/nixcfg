@@ -1,19 +1,16 @@
 { lib, config, pkgs, inputs, ... }:
 
+
 let
   dotConfigPath = "${inputs.illogicalImpulse}/dots/.config";
-
-  # Read only top-level dirs and files
-  configEntries = builtins.readDir dotConfigPath;
-
-  configFiles = builtins.attrNames configEntries;
-
 in {
-    config = {
-    xdg.configFile = builtins.listToAttrs (map (name: {
-      name = name;
-      value.source = "${dotConfigPath}/${name}";
-    }) configFiles);
+  config = {
+    home.file = {
+      ".config" = {
+        source = dotConfigPath;
+        recursive = true; # This copies the directory recursively
+      };
+    };
 
     home.packages = with pkgs; [
       cava
@@ -91,6 +88,6 @@ in {
       swww
       translate-shell
       wlogout
-      ];
-    };
+    ];
+  };
 }
