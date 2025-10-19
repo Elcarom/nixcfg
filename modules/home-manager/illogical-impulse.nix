@@ -22,10 +22,10 @@ in {
       };
 
       ".config/quickshell" = {
-        .source = dotConfigPath/quickshell/ii";
+        source = dotConfigPath/quickshell/ii";
         recursive = true;
       };
-      
+
     };
 
     home.packages = with pkgs; [
