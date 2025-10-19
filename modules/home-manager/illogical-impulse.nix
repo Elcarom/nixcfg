@@ -15,7 +15,7 @@ in {
   }) configFiles);
 }
 
-  home.packages = with pkgs; [
+  config.home.packages = with pkgs; [
     cava
     lxqt.pavucontrol-qt
     wireplumber
