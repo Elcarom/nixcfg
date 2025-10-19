@@ -44,4 +44,5 @@
         kitty.enable = true;
     };
 
+  };
 }
