@@ -8,14 +8,15 @@ let
   collectFiles = dir:
     let entries = builtins.readDir dir;
     in lib.concatMap (name:
-      let full = dir + "/" + name;
+      let
+        full = dir + "/" + name;
       in if entries.${name} == "directory" then
         collectFiles full
       else
         [{
           src = full;
-          # Compute the relative path under dotsDir
-          rel = lib.replaceStrings [toString dotsDir + "/"] [""] (toString full);
+          # Compute the relative path under dotsDir safely
+          rel = lib.replaceStrings [ (toString dotsDir + "/") ] [""] (toString full);
         }]
     ) (lib.attrNames entries);
 
@@ -33,9 +34,9 @@ in {
   config.home.file = lib.listToAttrs (map (f: {
     name = lib.replaceStrings ["/"] ["__"] f.rel;
     value = {
-      source = f.src;        # store path is fine here
-      destination = f.rel;   # MUST be relative string, no store prefix
-      type = "symlink";      # symlink or "copy"
+      source = f.src;        # store path is fine
+      destination = f.rel;   # relative path only
+      type = "symlink";      # or "copy"
     };
   }) dotFilesFiltered);
 
