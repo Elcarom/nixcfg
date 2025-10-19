@@ -3,28 +3,17 @@
 let
   dotConfigPath = "${inputs.illogicalImpulse}/dots/.config";
 
-  # Recursively collect all relative file paths in .config
-  getConfigFilesRecursive = path:
-    let
-      entries = builtins.readDir path;
-      entryNames = builtins.attrNames entries;
+  # Read only top-level dirs and files
+  configEntries = builtins.readDir dotConfigPath;
 
-      filePaths = lib.concatMap (name:
-        let fullPath = "${path}/${name}";
-        in if entries.${name} == "directory" then
-          map (sub: "${name}/${sub}") (getConfigFilesRecursive fullPath)
-        else
-          [ name ]
-      ) entryNames;
-    in filePaths;
-
-  configFiles = getConfigFilesRecursive dotConfigPath;
+  configFiles = builtins.attrNames configEntries;
 
 in {
-  xdg.configFile = builtins.listToAttrs (map (relPath: {
-    name = relPath;
-    value.source = "${dotConfigPath}/${relPath}";
+  xdg.configFile = builtins.listToAttrs (map (name: {
+    name = name;
+    value.source = "${dotConfigPath}/${name}";
   }) configFiles);
+}
 
   home.packages = with pkgs; [
     cava
