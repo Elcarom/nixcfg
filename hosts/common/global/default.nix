@@ -2,5 +2,5 @@
   imports =
     [
       ./nix.nix
-    ]
+    ];
 }
