@@ -4,10 +4,8 @@
     isNormalUser = true;
     initialPassword = "password";
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = [ inputs.home-manager.packages.${pkgs.system}.default ];
+    packages = [ ];
   };
-
-  home-manager.users.elcarom = import ../../../../home/elcarom/${config.networking.hostName}.nix;
 
 }
 

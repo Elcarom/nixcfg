@@ -1,5 +1,4 @@
 { lib, inputs, outputs, ... }: {
-  
 
   nixpkgs = {
     overlays = [
@@ -22,13 +21,16 @@
         "@wheel"
       ]; # Set users that are allowed to use the flake command
     };
+
     gc = {
       automatic = true;
       options = "--delete-older-than 30d";
     };
     optimise.automatic = true;
+    
     registry = (lib.mapAttrs (_: flake: { inherit flake; }))
       ((lib.filterAttrs (_: lib.isType "flake")) inputs);
-    nixPath = [ "/etc/nix/path" ];
+    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}")
+      ((lib.filterAttrs (_: lib.isType "flake")) inputs);
   };
 }
