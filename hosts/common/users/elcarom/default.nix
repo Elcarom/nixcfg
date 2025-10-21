@@ -1,5 +1,7 @@
 { config, pkgs, inputs, ... }: {
 
+  imports = [./packages.nix];
+  
   users.users.elcarom = {
     isNormalUser = true;
     initialPassword = "password";
