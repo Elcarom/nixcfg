@@ -3,8 +3,10 @@
     ./hardware-configuration.nix
 
     ../common/global
+
     ../common/users/camille
     ../common/users/elcarom
+    
     ../common/optional/plasma.nix
   ];
 

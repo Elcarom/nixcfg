@@ -3,9 +3,12 @@
     ./hardware-configuration.nix
 
     ../common/global
+    
     ../common/users/camille
     ../common/users/elcarom
+
     ../common/optional/mediamtx.nix
+    ../common/optional/nvidia.nix
     ../common/optional/plasma.nix
   ];
 
