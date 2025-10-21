@@ -1,5 +1,7 @@
 { config, pkgs, inputs, ... }: {
 
+  imports = [./packages.nix];
+
   users.users.camille = {
     isNormalUser = true;
     initialPassword = "password";
