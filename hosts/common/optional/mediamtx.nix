@@ -1,5 +1,5 @@
-{
-  config = {
+{pkgs, lib, ...}: { 
+    config = {
     services = {
       mediamtx = {
         allowVideoAccess = true;
