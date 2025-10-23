@@ -27,6 +27,7 @@
         vsvr-nos052 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
           modules = [ ./hosts/vsvr-nos052 ];
+        };
         
         svr-nos051 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
