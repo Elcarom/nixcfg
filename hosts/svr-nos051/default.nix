@@ -6,7 +6,6 @@
     ../common/users/camille
     ../common/users/elcarom
     ../common/optional/mediamtx.nix
-    ../common/optional/plasma.nix
   ];
 
   networking.hostName = "svr-nos051";
