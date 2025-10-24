@@ -9,6 +9,7 @@
 
     ../common/optional/mediamtx.nix
     ../common/optional/nvidia.nix
+    ../common/optional/plasma.nix
   ];
 
   networking.hostName = "svr-nos051";
