@@ -2,6 +2,7 @@
 {
   environment.systemPackages = [
     pkgs.mediamtx
+    pkgs.ffmpeg
   ];
 
   services.mediamtx = {
