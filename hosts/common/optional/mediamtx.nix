@@ -1,9 +1,28 @@
 { pkgs, lib, ... }:
+
 {
   environment.systemPackages = [
     pkgs.mediamtx
     pkgs.ffmpeg-full
+    pkgs.v4l2loopback-dkms
   ];
+
+  # Load v4l2loopback kernel module
+  boot.kernelModules = [ "v4l2loopback" ];
+
+  # Create two virtual devices at boot
+  systemd.services.v4l2loopback = {
+    description = "Create v4l2loopback devices for camera streaming";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = ''
+        modprobe v4l2loopback devices=2 video_nr=1,2 card_label="cam_main","cam_sub" exclusive_caps=1
+      '';
+      RemainAfterExit = true;
+    };
+  };
 
   services.mediamtx = {
     enable = true;
@@ -11,11 +30,21 @@
 
     settings = {
       paths = {
-        cam = {
-          runOnInit = ''${lib.getExe pkgs.ffmpeg} -y -hwaccel cuda -hwaccel_output_format cuda -f v4l2 -input_format mjpeg -video_size 1920x1080 -framerate 30 -i /dev/video0 -filter_complex "[0:v]split=2[main][sub]; [main]scale_cuda=1920:1080,format=yuv420p[mainout]; [sub]scale_cuda=640:360,format=yuv420p[subout]" -map "[mainout]" -c:v h264_nvenc -b:v 5M -pix_fmt yuv420p -f rtsp rtsp://localhost:$RTSP_PORT/main -map "[subout]" -c:v h264_nvenc -b:v 1M -pix_fmt yuv420p -f rtsp rtsp://localhost:$RTSP_PORT/sub'';
+        all_others = {
           runOnInitRestart = true;
         };
-        all_others = {
+        cam = {
+          runOnInit = ''
+            ${lib.getExe pkgs.ffmpeg-full} -y -hwaccel cuda -hwaccel_output_format cuda \
+              -f v4l2 -input_format mjpeg -video_size 1920x1080 -framerate 30 -i /dev/video0 \
+              -vf scale_cuda=1920:1080,format=yuv420p -c:v h264_nvenc -b:v 5M -pix_fmt yuv420p \
+              -f v4l2 /dev/video1 &
+
+            ${lib.getExe pkgs.ffmpeg-full} -y -hwaccel cuda -hwaccel_output_format cuda \
+              -f v4l2 -input_format mjpeg -video_size 1920x1080 -framerate 30 -i /dev/video0 \
+              -vf scale_cuda=640:360,format=yuv420p -c:v h264_nvenc -b:v 1M -pix_fmt yuv420p \
+              -f v4l2 /dev/video2
+          '';
           runOnInitRestart = true;
         };
       };
