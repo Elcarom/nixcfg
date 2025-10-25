@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   environment.systemPackages = [
@@ -6,22 +6,12 @@
     pkgs.ffmpeg-full
   ];
 
-  # Load v4l2loopback kernel module
+  # Declarative v4l2loopback setup — loaded automatically at boot
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   boot.kernelModules = [ "v4l2loopback" ];
-
-  # Create two virtual devices at boot
-  systemd.services.v4l2loopback = {
-    description = "Create v4l2loopback devices for camera streaming";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = ''
-        modprobe v4l2loopback devices=2 video_nr=1,2 card_label="cam_main","cam_sub" exclusive_caps=1
-      '';
-      RemainAfterExit = true;
-    };
-  };
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=2 video_nr=1,2 card_label="cam_main,cam_sub" exclusive_caps=1
+  '';
 
   services.mediamtx = {
     enable = true;
