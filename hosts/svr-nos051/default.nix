@@ -12,6 +12,8 @@
     ../common/optional/plasma.nix
   ];
 
+  networking.networkmanager.enable = true;
+  networking.firewall.enable = false;
   networking.hostName = "svr-nos051";
 
   hardware.graphics.enable = true;
