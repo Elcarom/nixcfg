@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 {
   environment.systemPackages = [
-    pkgs.ffmpeg-full
+    pkgs.mediamtx
   ];
 
   services.mediamtx = {
