@@ -4,7 +4,6 @@
   environment.systemPackages = [
     pkgs.mediamtx
     pkgs.ffmpeg-full
-    pkgs.v4l2loopback-dkms
   ];
 
   # Load v4l2loopback kernel module
