@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages = [
-    pkgs.mediamtx
+    pkgs.stable.mediamtx
     pkgs.ffmpeg-full
   ];
 
